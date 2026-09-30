@@ -24,8 +24,17 @@ public class Agence {
     @Builder.Default
     private List<Vehicule> vehicules = new ArrayList<>();
 
+    @OneToMany(mappedBy = "agence")
+    @Builder.Default
+    private List<Employe> employes = new ArrayList<>();
+
     public void addVehicule(Vehicule v) {
         vehicules.add(v);
         v.setAgence(this);
+    }
+
+    public void addEmploye(Employe e) {
+        employes.add(e);
+        e.setAgence(this);
     }
 }

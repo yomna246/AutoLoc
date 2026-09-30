@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "vehicule")
@@ -33,4 +35,13 @@ public class Vehicule {
 
     @ManyToOne
     private Agence agence;
+
+    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.REMOVE)
+    @Builder.Default
+    private List<Reservation> reservations = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "vehicule_equipement")
+    @Builder.Default
+    private List<Equipement> equipements = new ArrayList<>();
 }

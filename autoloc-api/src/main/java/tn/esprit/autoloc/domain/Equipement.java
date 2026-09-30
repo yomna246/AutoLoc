@@ -3,6 +3,9 @@ package tn.esprit.autoloc.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "equipement")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
@@ -13,4 +16,8 @@ public class Equipement {
     private Long idEquipement;
 
     private String libelle;
+
+    @ManyToMany(mappedBy = "equipements")
+    @Builder.Default
+    private List<Vehicule> vehicules = new ArrayList<>();
 }
