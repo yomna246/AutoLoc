@@ -8,11 +8,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "vehicule")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Vehicule {
 
     @Id
@@ -34,4 +30,8 @@ public class Vehicule {
 
     @Enumerated(EnumType.STRING)
     private StatutVehicule statut;
+
+    @ManyToOne
+    @JoinColumn(name = "agence_id")
+    private Agence agence;
 }
