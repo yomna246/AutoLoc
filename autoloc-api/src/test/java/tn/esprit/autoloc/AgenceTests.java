@@ -49,6 +49,22 @@ public class AgenceTests {
 
         agenceRepository.save(agence);
     }
+    @Test
+    public void loadAgence() {
+        Iterable<Agence> agences = agenceRepository.findAll();
+
+        StringBuilder sb = new StringBuilder("\n");
+        for (Agence a : agences) {
+            sb.append(a.getIdAgence()).append(" | Agence ").append(a.getNom()).append("\n");
+            sb.append("Vehicules Count : ").append(a.getVehicules().size()).append("\n");
+            for (Vehicule v : a.getVehicules()) {
+                sb.append("=== ").append(v.getIdVehicule())
+                        .append("|").append(v.getImmatriculation()).append("\n");
+            }
+        }
+
+        fail(sb.toString());
+    }
 }
 
 interface AgenceRepositoryMock extends CrudRepository<Agence, Long> {
