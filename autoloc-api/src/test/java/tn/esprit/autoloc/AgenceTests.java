@@ -8,7 +8,7 @@ import tn.esprit.autoloc.domain.Agence;
 import tn.esprit.autoloc.domain.CategorieVehicule;
 import tn.esprit.autoloc.domain.StatutVehicule;
 import tn.esprit.autoloc.domain.Vehicule;
-
+import static org.junit.jupiter.api.Assertions.fail;
 import java.math.BigDecimal;
 
 @SpringBootTest

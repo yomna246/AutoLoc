@@ -32,6 +32,5 @@ public class Vehicule {
     private StatutVehicule statut;
 
     @ManyToOne
-    @JoinColumn(name = "agence_id")
     private Agence agence;
 }
