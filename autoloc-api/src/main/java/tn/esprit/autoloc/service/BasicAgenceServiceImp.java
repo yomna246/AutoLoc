@@ -54,6 +54,10 @@ public class BasicAgenceServiceImp implements IAgenceService {
 
     @Override
     public void deleteById(Long id) {
+        if(!repository.existsById(id)){
+            throw new ResourceNotFoundException("Agence", id.toString());
+        }
+        repository.deleteById(id);
 
     }
 
