@@ -63,6 +63,6 @@ public class BasicAgenceServiceImp implements IAgenceService {
 
     @Override
     public boolean hasVehicules(Long id) {
-        return false;
+        return !findById(id).getVehicules().isEmpty();
     }
 }
