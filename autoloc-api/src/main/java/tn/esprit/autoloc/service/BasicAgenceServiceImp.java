@@ -2,6 +2,7 @@ package tn.esprit.autoloc.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.autoloc.Utils;
 import tn.esprit.autoloc.domain.Agence;
 import tn.esprit.autoloc.repository.IAgenceRepository;
 
@@ -12,12 +13,19 @@ public class BasicAgenceServiceImp implements IAgenceService {
     private final IAgenceRepository repository;
     @Override
     public boolean check(Agence agence, boolean isNew) {
-        return false;
+        return Utils.isNotEmpty(agence.getNom()) && Utils.isNotEmpty(agence.getTelephone());
     }
 
     @Override
     public Agence create(Agence agence) {
-        return null;
+        if(agence.getIdAgence() !=null){
+            throw new IllegalArgumentException("id agence doit etre null!!!");
+        }
+        if(!check(agence,true)){
+            throw new IllegalArgumentException(" certains champs sont invalides !");
+        }
+
+        return repository.save(agence);
     }
 
     @Override
