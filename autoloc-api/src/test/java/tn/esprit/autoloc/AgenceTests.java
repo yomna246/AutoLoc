@@ -8,15 +8,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import tn.esprit.autoloc.domain.Agence;
 import tn.esprit.autoloc.domain.CategorieVehicule;
 import tn.esprit.autoloc.domain.StatutVehicule;
 import tn.esprit.autoloc.domain.Vehicule;
 import tn.esprit.autoloc.repository.IAgenceRepository;
+import tn.esprit.autoloc.service.IAgenceService;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
@@ -28,7 +31,11 @@ public class AgenceTests {
     @Autowired
     private IAgenceRepository fullAgenceRepository;
 
-    // ---------- Partie I : ajout ----------
+    // Étape 12
+    @Autowired
+    private IAgenceService agenceService;
+
+    // ---------- Chapitre 4 : ajout ----------
 
     private void addAgence(CrudRepository<Agence, Long> repository) {
         int suffix = (int) System.currentTimeMillis();
@@ -74,7 +81,7 @@ public class AgenceTests {
         addAgence(fullAgenceRepository);
     }
 
-    // ---------- Partie I : chargement ----------
+    // ---------- Chapitre 4 : chargement ----------
 
     private void loadAgence(CrudRepository<Agence, Long> repository, String typeDepot) {
         Iterable<Agence> agences = repository.findAll();
@@ -103,8 +110,6 @@ public class AgenceTests {
         loadAgence(fullAgenceRepository, "full (JpaRepository)");
     }
 
-    // ---------- Partie II : tri et pagination ----------
-
     @Test
     public void loadSortedAgences() {
         List<Agence> agences = fullAgenceRepository.findAll(Sort.by(Sort.Direction.DESC, "idAgence"));
@@ -131,7 +136,26 @@ public class AgenceTests {
 
         fail(sb.toString());
     }
+
+    // ---------- Chapitre 5 : service ----------
+
+    // Étape 13
+    @Test
+    public void createAgence() {
+        Agence agence = Agence.builder()
+                .nom("AutoLoc Sfax")
+                .ville("Sfax")
+                .adresse("5 Rue de la République")
+                .telephone("74 000 000")
+                .build();
+
+        Agence saved = agenceService.create(agence);
+
+        assertNotNull(saved.getIdAgence());
+    }
 }
 
+// Étape 11
+@Repository
 interface AgenceRepositoryMock extends CrudRepository<Agence, Long> {
 }
