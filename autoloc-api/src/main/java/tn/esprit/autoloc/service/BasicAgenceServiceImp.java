@@ -1,12 +1,15 @@
 package tn.esprit.autoloc.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import tn.esprit.autoloc.domain.Agence;
 import tn.esprit.autoloc.repository.IAgenceRepository;
 
 import java.util.List;
-
+@Service
+@RequiredArgsConstructor
 public class BasicAgenceServiceImp implements IAgenceService {
-    private IAgenceRepository repository;
+    private final IAgenceRepository repository;
     @Override
     public boolean check(Agence agence, boolean isNew) {
         return false;
