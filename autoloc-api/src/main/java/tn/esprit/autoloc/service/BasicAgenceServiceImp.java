@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.autoloc.Utils;
 import tn.esprit.autoloc.domain.Agence;
+import tn.esprit.autoloc.exception.ResourceNotFoundException;
 import tn.esprit.autoloc.repository.IAgenceRepository;
 
 import java.util.List;
@@ -30,17 +31,25 @@ public class BasicAgenceServiceImp implements IAgenceService {
 
     @Override
     public Agence findById(Long id) {
-        return null;
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Agence" , id.toString()));
     }
 
     @Override
     public List<Agence> findAll() {
-        return List.of();
+        return repository.findAll();
     }
 
     @Override
     public Agence update(Long id, Agence agence) {
-        return null;
+        Agence existing = findById(id);
+        if(!check(agence, false)){
+            throw new IllegalArgumentException("certains champs sont invalides!!");
+        }
+        existing.setNom(agence.getNom());
+        existing.setVille(agence.getVille());
+        existing.setAdresse(agence.getAdresse());
+        existing.setTelephone(agence.getTelephone());
+        return repository.save(existing);
     }
 
     @Override
