@@ -136,10 +136,6 @@ public class AgenceTests {
 
         fail(sb.toString());
     }
-
-    // ---------- Chapitre 5 : service ----------
-
-    // Étape 13
     @Test
     public void createAgence() {
         Agence agence = Agence.builder()

@@ -16,7 +16,7 @@ public abstract class GenericServiceImpl<T, ID> implements IGenericService<T, ID
     protected abstract ID getId(T entity);
 
     protected abstract void setFields(T source, T existing);
-    
+
 
     @Override
     public T create(T entity) {
