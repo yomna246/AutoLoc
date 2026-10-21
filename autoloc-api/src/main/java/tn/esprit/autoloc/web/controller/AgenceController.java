@@ -1,10 +1,8 @@
 package tn.esprit.autoloc.web.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import tn.esprit.autoloc.domain.Agence;
 import tn.esprit.autoloc.service.IAgenceService;
 
@@ -23,5 +21,11 @@ public class AgenceController {
     @GetMapping("/{id}")
     public Agence findById(@PathVariable Long id) {
         return agenceService.findById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Agence create(@RequestBody Agence agence) {
+        return agenceService.create(agence);
     }
 }
