@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import tn.esprit.autoloc.domain.Agence;
 import tn.esprit.autoloc.service.IAgenceService;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import tn.esprit.autoloc.calcul.VehiculeOffre;
+import tn.esprit.autoloc.domain.Agence;
 import java.util.List;
 
 @RestController
@@ -82,4 +86,17 @@ public class AgenceController {
             @Parameter(description = "Identifiant de l'agence") @PathVariable Long id) {
         agenceService.deleteById(id);
     }
+
+
+    @GetMapping("/{id}/simuler")
+    public String simuler(
+            @PathVariable Long id,
+            @RequestParam int nbJours,
+            @RequestParam VehiculeOffre offre) {
+
+        Agence agence = agenceService.findById(id);
+
+        return agenceService.simuler(agence, nbJours, offre);
+    }
+
 }

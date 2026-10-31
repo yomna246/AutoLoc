@@ -6,6 +6,7 @@ import tn.esprit.autoloc.Utils;
 import tn.esprit.autoloc.domain.Agence;
 import tn.esprit.autoloc.exception.ResourceNotFoundException;
 import tn.esprit.autoloc.repository.IAgenceRepository;
+import tn.esprit.autoloc.calcul.VehiculeOffre;
 
 import java.util.List;
 @Service
@@ -65,4 +66,12 @@ public class BasicAgenceServiceImp implements IAgenceService {
     public boolean hasVehicules(Long id) {
         return !findById(id).getVehicules().isEmpty();
     }
+
+    @Override
+    public String simuler(Agence agence, int nbJours, VehiculeOffre offre) {
+        throw new UnsupportedOperationException(
+                "La simulation n'est pas supportee par le service basique"
+        );
+    }
+
 }
