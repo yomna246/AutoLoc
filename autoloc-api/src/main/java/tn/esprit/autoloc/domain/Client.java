@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class Client {
     @OneToMany(mappedBy = "client",
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             fetch = FetchType.EAGER)
+    @JsonIgnore
     @Builder.Default
     private Set<Reservation> reservations = new HashSet<>();
 }
