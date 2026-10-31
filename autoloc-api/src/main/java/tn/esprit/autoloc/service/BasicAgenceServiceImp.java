@@ -67,11 +67,6 @@ public class BasicAgenceServiceImp implements IAgenceService {
         return !findById(id).getVehicules().isEmpty();
     }
 
-    @Override
-    public String simuler(Agence agence, int nbJours, VehiculeOffre offre) {
-        throw new UnsupportedOperationException(
-                "La simulation n'est pas supportee par le service basique"
-        );
-    }
+
 
 }

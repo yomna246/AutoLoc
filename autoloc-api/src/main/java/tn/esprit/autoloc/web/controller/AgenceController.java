@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import tn.esprit.autoloc.calcul.VehiculeOffre;
 import tn.esprit.autoloc.domain.Agence;
+import tn.esprit.autoloc.service.ISimulationService;
+
 import java.util.List;
 
 @RestController
@@ -32,7 +34,7 @@ import java.util.List;
 public class AgenceController {
 
     private final IAgenceService agenceService;
-
+    private final ISimulationService simulationService;
     @Operation(summary = "Lister les agences")
     @ApiResponse(responseCode = "200", description = "Liste des agences")
     @GetMapping
@@ -88,6 +90,7 @@ public class AgenceController {
     }
 
 
+
     @GetMapping("/{id}/simuler")
     public String simuler(
             @PathVariable Long id,
@@ -96,7 +99,8 @@ public class AgenceController {
 
         Agence agence = agenceService.findById(id);
 
-        return agenceService.simuler(agence, nbJours, offre);
+        return simulationService.simuler(agence, nbJours, offre);
     }
+
 
 }
