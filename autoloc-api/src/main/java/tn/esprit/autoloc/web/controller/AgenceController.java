@@ -14,16 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import tn.esprit.autoloc.domain.Agence;
-import tn.esprit.autoloc.service.IAgenceService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import tn.esprit.autoloc.calcul.VehiculeOffre;
 import tn.esprit.autoloc.domain.Agence;
-import tn.esprit.autoloc.service.ISimulationService;
+import tn.esprit.autoloc.service.IAgenceCompleteService;
 
 import java.util.List;
 
@@ -33,8 +29,8 @@ import java.util.List;
 @Tag(name = "Agences", description = "Gestion des agences de location")
 public class AgenceController {
 
-    private final IAgenceService agenceService;
-    private final ISimulationService simulationService;
+    private final IAgenceCompleteService agenceService;
+
     @Operation(summary = "Lister les agences")
     @ApiResponse(responseCode = "200", description = "Liste des agences")
     @GetMapping
@@ -89,8 +85,6 @@ public class AgenceController {
         agenceService.deleteById(id);
     }
 
-
-
     @GetMapping("/{id}/simuler")
     public String simuler(
             @PathVariable Long id,
@@ -99,8 +93,6 @@ public class AgenceController {
 
         Agence agence = agenceService.findById(id);
 
-        return simulationService.simuler(agence, nbJours, offre);
+        return agenceService.simuler(agence, nbJours, offre);
     }
-
-
 }
