@@ -2,15 +2,21 @@ package tn.esprit.autoloc.service;
 
 import org.springframework.stereotype.Service;
 import tn.esprit.autoloc.Utils;
+import tn.esprit.autoloc.calcul.IOffreStrategy;
 import tn.esprit.autoloc.calcul.VehiculeOffre;
 import tn.esprit.autoloc.domain.Vehicule;
 import tn.esprit.autoloc.repository.IVehiculeRepository;
 
+import java.util.Map;
+
 @Service
 public class VehiculeServiceImpl extends GenericServiceImpl<Vehicule, Long> implements IVehiculeService {
 
-    public VehiculeServiceImpl(IVehiculeRepository repository) {
+    private final Map<String, IOffreStrategy> strategies;
+
+    public VehiculeServiceImpl(IVehiculeRepository repository, Map<String, IOffreStrategy> strategies) {
         super(repository);
+        this.strategies = strategies;
     }
 
     @Override
@@ -41,25 +47,12 @@ public class VehiculeServiceImpl extends GenericServiceImpl<Vehicule, Long> impl
                 && v.getTarifJournalier() != null;
     }
 
+    @Override
     public double calculTarif(Vehicule vehicule, int nbJours, VehiculeOffre offre) {
-
-        double tarifJournalier = vehicule.getTarifJournalier().doubleValue();
-
-        if (offre == VehiculeOffre.WEEKEND) {
-            tarifJournalier *= 0.8;
+        IOffreStrategy strategie = strategies.get(offre.name());
+        if (strategie == null) {
+            throw new IllegalArgumentException("Offre non supportée : " + offre);
         }
-
-        if (offre == VehiculeOffre.LONGUE_DUREE) {
-            tarifJournalier *= 0.75;
-        }
-
-        double total = tarifJournalier * nbJours;
-
-        if (offre == VehiculeOffre.LONGUE_DUREE && total > 2000) {
-            total *= 0.95;
-        }
-
-        return total;
+        return strategie.calculer(vehicule.getTarifJournalier().doubleValue(), nbJours);
     }
-
 }
