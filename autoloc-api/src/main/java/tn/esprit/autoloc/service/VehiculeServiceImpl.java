@@ -62,7 +62,7 @@ public class VehiculeServiceImpl extends GenericServiceImpl<Vehicule, Long> impl
 
     @Override
     public double calculTarif(Vehicule vehicule, int nbJours, VehiculeOffre offre) {
-        IOffreStrategy strategie = strategies.get(offre.name());
+        IOffreStrategy strategie = strategies.get(offre.getBeanName());
         if (strategie == null) {
             throw new IllegalArgumentException("Offre non supportée : " + offre);
         }
@@ -90,8 +90,8 @@ public class VehiculeServiceImpl extends GenericServiceImpl<Vehicule, Long> impl
         Vehicule vehicule = findById(idVehicule);
         Equipement equipement = equipementRepository.findById(idEquipement)
                 .orElseThrow(() -> new ResourceNotFoundException("Equipement", idEquipement.toString()));
-        if (!vehicule.getEquipements().contains(equipement)) {
-            vehicule.getEquipements().add(equipement);
+        if (!equipement.getVehicules().contains(vehicule)) {
+            equipement.getVehicules().add(vehicule);
         }
     }
 }

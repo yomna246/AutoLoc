@@ -1,6 +1,6 @@
 package tn.esprit.autoloc.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,12 +21,16 @@ public class Agence {
     private String adresse;
     private String telephone;
 
+    // Q11 : champ mappé entier
+    private int effectif;
+
     @OneToMany(mappedBy = "agence", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @Builder.Default
     private List<Vehicule> vehicules = new ArrayList<>();
 
+    // Accepté en entrée (JSON imbriqué), jamais renvoyé en sortie
     @OneToMany(mappedBy = "agence")
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Builder.Default
     private List<Employe> employes = new ArrayList<>();
 
@@ -35,8 +39,14 @@ public class Agence {
         v.setAgence(this);
     }
 
+    // Q10 : relation agence/employé symétrique, les deux côtés restent cohérents
     public void addEmploye(Employe e) {
         employes.add(e);
         e.setAgence(this);
+    }
+
+    public void removeEmploye(Employe e) {
+        employes.remove(e);
+        e.setAgence(null);
     }
 }

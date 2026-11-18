@@ -2,9 +2,9 @@ package tn.esprit.autoloc.service;
 
 import java.util.List;
 
-public interface IReadGenericService<T, ID> {
+public interface IReadGenericService<T, I> {
 
-    T findById(ID id);
+    T findById(I id);
 
     List<T> findAll();
 

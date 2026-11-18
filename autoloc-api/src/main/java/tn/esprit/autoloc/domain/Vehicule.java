@@ -44,8 +44,7 @@ public class Vehicule {
     @Builder.Default
     private List<Reservation> reservations = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "vehicule_equipement")
+    @ManyToMany(mappedBy = "vehicules")
     @Builder.Default
     private List<Equipement> equipements = new ArrayList<>();
 }

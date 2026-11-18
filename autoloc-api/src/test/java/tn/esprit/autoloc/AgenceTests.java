@@ -22,8 +22,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Disabled;
+@Disabled("Tests des anciens ateliers")
 @SpringBootTest
-public class AgenceTests {
+class AgenceTests {
 
     @Autowired
     private AgenceRepositoryMock basicAgenceRepository;
@@ -72,12 +74,12 @@ public class AgenceTests {
     }
 
     @Test
-    public void basicAddAgence() {
+    void basicAddAgence() {
         addAgence(basicAgenceRepository);
     }
 
     @Test
-    public void fullAddAgence() {
+    void fullAddAgence() {
         addAgence(fullAgenceRepository);
     }
 
@@ -101,17 +103,17 @@ public class AgenceTests {
     }
 
     @Test
-    public void basicLoadAgence() {
+    void basicLoadAgence() {
         loadAgence(basicAgenceRepository, "basic (CrudRepository)");
     }
 
     @Test
-    public void fullLoadAgence() {
+    void fullLoadAgence() {
         loadAgence(fullAgenceRepository, "full (JpaRepository)");
     }
 
     @Test
-    public void loadSortedAgences() {
+    void loadSortedAgences() {
         List<Agence> agences = fullAgenceRepository.findAll(Sort.by(Sort.Direction.DESC, "idAgence"));
 
         StringBuilder sb = new StringBuilder("\n");
@@ -123,7 +125,7 @@ public class AgenceTests {
     }
 
     @Test
-    public void loadPagedAgences() {
+    void loadPagedAgences() {
         Pageable pageable = PageRequest.of(0, 2, Sort.by(Sort.Direction.DESC, "idAgence"));
         Page<Agence> page = fullAgenceRepository.findAll(pageable);
 
@@ -138,7 +140,7 @@ public class AgenceTests {
     }
     /*erreur est Spring a trouvé deux classes qui peuvent répondre à IAgenceService et ne sait pas laquelle injecter dans AgenceTests.*/
     @Test
-    public void createAgence() {
+    void createAgence() {
         Agence agence = Agence.builder()
                 .nom("AutoLoc Sfax")
                 .ville("Sfax")

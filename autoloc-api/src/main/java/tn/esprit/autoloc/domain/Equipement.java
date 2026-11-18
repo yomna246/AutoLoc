@@ -18,7 +18,10 @@ public class Equipement {
 
     private String libelle;
 
-    @ManyToMany(mappedBy = "equipements")
+    @ManyToMany
+    @JoinTable(name = "vehicule_equipement",
+            joinColumns = @JoinColumn(name = "equipement_id"),
+            inverseJoinColumns = @JoinColumn(name = "vehicule_id"))
     @JsonIgnore
     @Builder.Default
     private List<Vehicule> vehicules = new ArrayList<>();
