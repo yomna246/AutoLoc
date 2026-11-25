@@ -22,6 +22,7 @@ import tn.esprit.autoloc.service.IAgenceCompleteService;
 
 import java.util.List;
 
+@SuppressWarnings("java:S4684")
 @RestController
 @RequestMapping("/agences")
 @RequiredArgsConstructor

@@ -60,17 +60,19 @@ abstract class AbstractGenericServiceTest<T> {
 
     @Test
     void createWithIdThrowsException() {
+        GenericServiceImpl<T, Long> service = service();
         T entity = validWithId();
 
-        assertThrows(IllegalArgumentException.class, () -> service().create(entity));
+        assertThrows(IllegalArgumentException.class, () -> service.create(entity));
         verify(repository(), never()).save(any());
     }
 
     @Test
     void createInvalidEntityThrowsException() {
+        GenericServiceImpl<T, Long> service = service();
         T entity = invalid();
 
-        assertThrows(IllegalArgumentException.class, () -> service().create(entity));
+        assertThrows(IllegalArgumentException.class, () -> service.create(entity));
         verify(repository(), never()).save(any());
     }
 
@@ -84,9 +86,10 @@ abstract class AbstractGenericServiceTest<T> {
 
     @Test
     void findByIdUnknownThrowsNotFound() {
+        GenericServiceImpl<T, Long> service = service();
         when(repository().findById(ID)).thenReturn(Optional.empty());
 
-        assertThrows(ResourceNotFoundException.class, () -> service().findById(ID));
+        assertThrows(ResourceNotFoundException.class, () -> service.findById(ID));
     }
 
     @Test
@@ -111,10 +114,11 @@ abstract class AbstractGenericServiceTest<T> {
 
     @Test
     void updateInvalidEntityThrowsException() {
+        GenericServiceImpl<T, Long> service = service();
         when(repository().findById(ID)).thenReturn(Optional.of(validWithId()));
         T entity = invalid();
 
-        assertThrows(IllegalArgumentException.class, () -> service().update(ID, entity));
+        assertThrows(IllegalArgumentException.class, () -> service.update(ID, entity));
         verify(repository(), never()).save(any());
     }
 
@@ -129,9 +133,10 @@ abstract class AbstractGenericServiceTest<T> {
 
     @Test
     void deleteByIdUnknownThrowsNotFound() {
+        GenericServiceImpl<T, Long> service = service();
         when(repository().existsById(ID)).thenReturn(false);
 
-        assertThrows(ResourceNotFoundException.class, () -> service().deleteById(ID));
+        assertThrows(ResourceNotFoundException.class, () -> service.deleteById(ID));
         verify(repository(), never()).deleteById(any());
     }
 }

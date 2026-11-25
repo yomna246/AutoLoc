@@ -7,7 +7,7 @@ import tn.esprit.autoloc.domain.Contrat;
 import tn.esprit.autoloc.service.IContratService;
 
 import java.util.List;
-
+@SuppressWarnings("java:S4684")
 @RestController
 @RequestMapping("/contrats")
 @RequiredArgsConstructor

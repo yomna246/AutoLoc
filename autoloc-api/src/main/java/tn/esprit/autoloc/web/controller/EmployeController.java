@@ -7,6 +7,7 @@ import tn.esprit.autoloc.domain.Employe;
 import tn.esprit.autoloc.service.IEmployeService;
 
 import java.util.List;
+@SuppressWarnings("java:S4684")
 
 @RestController
 @RequestMapping("/employes")

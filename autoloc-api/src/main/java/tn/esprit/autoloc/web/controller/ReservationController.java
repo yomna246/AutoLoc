@@ -8,6 +8,7 @@ import tn.esprit.autoloc.service.IReservationService;
 
 import java.util.List;
 
+@SuppressWarnings("java:S4684")
 @RestController
 @RequestMapping("/reservations")
 @RequiredArgsConstructor

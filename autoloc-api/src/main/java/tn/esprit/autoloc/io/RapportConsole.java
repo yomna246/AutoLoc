@@ -2,7 +2,9 @@ package tn.esprit.autoloc.io;
 
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Delegate;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 public class RapportConsole implements IRapport {
 
@@ -11,7 +13,7 @@ public class RapportConsole implements IRapport {
 
     @Override
     public void ecrireEntete(String entete) {
-        System.out.println(entete);
+        log.info("{}", entete);
     }
 
     @Override

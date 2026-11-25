@@ -7,6 +7,7 @@ import tn.esprit.autoloc.domain.Vehicule;
 import tn.esprit.autoloc.service.IVehiculeService;
 
 import java.util.List;
+@SuppressWarnings("java:S4684")
 
 @RestController
 @RequestMapping("/vehicules")
